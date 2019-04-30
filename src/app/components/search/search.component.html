@@ -1,0 +1,33 @@
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">This is my YouTube Search App</h1>
+    <p class="lead text-muted">With this app you can search for videos on the YouTube platform and view additional information.</p>
+    <form class="input-group mb-3" [formGroup]="searchForm">
+      <input formControlName="formInput" type="text" class="form-control" placeholder="Search video" aria-label="Search video">
+    </form>
+  </div>
+</section>
+
+<div *ngIf="show" class="album py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let video of videos">
+        <img src={{video.snippet.thumbnails.high.url}} idth="100%" height="225" class="card-img-top" alt="...">
+        <div
+          class="card-body latest mb-3"
+          [latest]=(video.snippet.publishedAt)
+          >
+          <h5 class="card-title">{{video.snippet.title}}</h5>
+          <p class="card-text">{{video.snippet.description}}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-primary" (click)="onView(video.id.videoId)">View</button>
+              <button type="button" class="btn btn-sm btn-success" (click)="onLike(video.id.videoId)">Like</button>
+            </div>
+            <small class="text-muted">{{video.snippet.publishedAt | date}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
